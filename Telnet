@@ -1,0 +1,131 @@
+//CiscoルーターにTelnet接続
+R-temlog #
+R-temlog# configure terminal
+Enter configuration commands, one per line.  End with CNTL/Z.
+R-temlog(config)# line vty 0 4 ←VTYポート0から4までTelnet接続できるように設定
+R-temlog(config-line)# password cisco4 ←Telnet接続時のパスワードを設定
+R-temlog(config-line)# transport input telnet ←Telnetを許可
+R-temlog(config-line)# end
+R-temlog#
+
+//show running-config コマンドで Telnet 設定の確認
+R-temlog#show running-config
+Building configuration...
+
+Current configuration : 1379 bytes
+!
+! Last configuration change at 12:29:32 UTC Mon Aug 19 2019
+version 15.1
+service timestamps debug datetime msec
+service timestamps log datetime msec
+service password-encryption ←パスワードはコンフィグレーションファイルが暗号化されている設定
+!
+hostname R-temlog
+!
+boot-start-marker
+boot-end-marker
+!
+!
+enable secret 5 $1$JbwL$uVU4zeCbkdSMBLhMCu1e/1
+enable password 7 104D000A061840
+!
+no aaa new-model
+!
+crypto pki token default removal timeout 0
+!
+!
+dot11 syslog
+ip source-route
+!         
+!         
+!         
+!         
+!         
+ip cef    
+no ipv6 cef
+!         
+multilink bundle-name authenticated
+!         
+!         
+!         
+license udi pid CISCO1812-J/K9 sn FHK100752MA
+!         
+!         
+!         
+!         
+!         
+!         
+!         
+!         
+!         
+interface BRI0
+ no ip address
+ encapsulation hdlc
+ shutdown 
+!         
+interface FastEthernet0
+ no ip address
+ shutdown 
+ duplex auto
+ speed auto
+!         
+interface FastEthernet1
+ ip address 192.168.20.1 255.255.255.0
+ duplex auto
+ speed auto
+!         
+interface FastEthernet2
+ no ip address
+!         
+interface FastEthernet3
+ no ip address
+!         
+interface FastEthernet4
+ no ip address
+!         
+interface FastEthernet5
+ no ip address
+!         
+interface FastEthernet6
+ no ip address
+!         
+interface FastEthernet7
+ no ip address
+!         
+interface FastEthernet8
+ no ip address
+!         
+interface FastEthernet9
+ no ip address
+!         
+interface Vlan1
+ no ip address
+!         
+ip forward-protocol nd
+no ip http server
+no ip http secure-server
+!         
+!         
+!         
+!         
+!         
+!         
+!         
+!         
+!         
+control-plane
+!         
+!         
+!         
+line con 0
+ password 7 045802150C2E
+ login    
+line aux 0
+line vty 0 4
+ password 7 110A1016141D5F ←パスワードは暗号化されている
+ login    
+ transport input telnet ←Telnet接続が有効
+!         
+end       
+          
+R-temlog#
