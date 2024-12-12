@@ -1,0 +1,67 @@
+//特権モードで show ip interface breaf
+
+R-temlog# show ip interface brief
+Interface                  IP-Address      OK? Method Status                Protocol
+BRI0                       unassigned      YES unset  administratively down down    
+BRI0:1                     unassigned      YES unset  administratively down down    
+BRI0:2                     unassigned      YES unset  administratively down down    
+FastEthernet0              unassigned      YES unset  administratively down down    
+FastEthernet1              unassigned      YES unset  administratively down down ←インターフェースが閉じていて、shutdownが設定されている  
+FastEthernet2              unassigned      YES unset  up                    down    
+FastEthernet3              unassigned      YES unset  up                    down    
+FastEthernet4              unassigned      YES unset  up                    down    
+FastEthernet5              unassigned      YES unset  up                    down    
+FastEthernet6              unassigned      YES unset  up                    down    
+FastEthernet7              unassigned      YES unset  up                    down    
+          
+R-temlog#
+
+//FastEthernet1 の IPアドレスの設定を確認
+
+R-temlog#show running-config interface FastEthernet0   
+Building configuration...
+
+Current configuration : 81 bytes
+!
+interface FastEthernet1
+ no ip address ←IPアドレスがありません
+ shutdown ←shutdownが設定されている
+ duplex auto
+ speed auto
+end
+
+R-temlog#
+
+//IPアドレスとサブネットマスクを設定
+
+R-temlog #configure terminal
+Enter configuration commands, one per line.  End with CNTL/Z.
+R-temlog (config)# interface FastEthernet1
+R-temlog (config-if)# ip address 192.168.20.1 255.255.255.0
+
+//IPアドレスの入力を間違えたら
+
+R-temlog(config-if)# no ip address
+R-temlog(config-if)# shutdown
+R-temlog(config-if)#
+
+//インターフェイスの有効化
+
+R-temlog(config-if)# no shutdown ←　忘れずに！
+R-temlog(config-if)# 
+R-temlog(config-if)# end 
+R-temlog#
+
+//FastEthernet1の設定を確認
+R-temlog# show running-config interface fastEthernet1   
+Building configuration...
+
+Current configuration : 95 bytes
+!
+interface FastEthernet1
+ ip address 192.168.20.1 255.255.255.0 ←IPアドレスが設定されている
+ duplex auto
+ speed auto
+end
+
+R-temlog#
