@@ -1,0 +1,27 @@
+//ユーザモード
+Router >
+
+//特権モード移行
+Router > enable
+Router # 
+
+//ユーザモードに戻す
+Router # disable
+Router >
+
+//グローバルコンフィグレーションモード
+Router # configure terminal or conf t
+Enter configuration commands, one per line.  End with CNTL/Z.
+Router (config)# 
+
+//特権モードに戻る
+Router (config)# exit
+Router #
+
+//インターフェースコンフィグレーションモード
+Router (config)# interface FastEthernet0/1 or int F 0/1
+Router (config-if)#
+
+//ラインコンフィグレーションモード
+Router (config)# line console 0
+Router (config-line)#
