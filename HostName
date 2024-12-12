@@ -1,0 +1,37 @@
+//ホスト名 を R-temlog に変更
+Router (config)# host R-temlog
+R-temlog(config)# 
+
+//元に戻す
+R-temlog (config)# no hostname
+Router (config)#
+
+//ホスト名が変更されたか確認
+R-temlog (config)# exit
+R-temlog# show running-config
+Building configuration...
+
+Current configuration : 1225 bytes
+!
+! Last configuration change at 13:28:35 UTC Fri Aug 9 2019
+version 15.1
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no service password-encryption
+!
+hostname R-temlog ←ホスト名が変更されているのが確認
+!
+boot-start-marker
+boot-end-marker
+!
+!
+!
+no aaa new-model
+!
+crypto pki token default removal timeout 0
+!
+!
+dot11 syslog
+ip source-route
+          
+R-temlog#
